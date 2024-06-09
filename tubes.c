@@ -129,36 +129,14 @@ void inOrderTraversal(CategoryNode* category) {
     // Traverse the left subtree
     inOrderTraversal(category->left);
 
-    // Print the books in the current category in reverse order
-    if (category->books != NULL) {
-        BookNode* currentBook = category->books;
-        BookNode* prevBook = NULL;
-        // Reverse the linked list of books
-        while (currentBook != NULL) {
-            BookNode* nextBook = currentBook->next;
-            currentBook->next = prevBook;
-            prevBook = currentBook;
-            currentBook = nextBook;
+    // Print the books in the current category
+    BookNode* currentBook = category->books;
+    while (currentBook != NULL) {
+        for (int i = 0; i < category->depth + 1; i++) {
+            printf("  ");
         }
-        // Print the reversed list
-        currentBook = prevBook;
-        while (currentBook != NULL) {
-            for (int i = 0; i < category->depth + 1; i++) {
-                printf("    ");
-            }
-            printf("|_ %s\n", currentBook->title);
-            currentBook = currentBook->next;
-        }
-        // Reverse the list back to original
-        currentBook = prevBook;
-        prevBook = NULL;
-        while (currentBook != NULL) {
-            BookNode* nextBook = currentBook->next;
-            currentBook->next = prevBook;
-            prevBook = currentBook;
-            currentBook = nextBook;
-        }
-        category->books = prevBook;
+        printf("|_ %s\n", currentBook->title);
+        currentBook = currentBook->next;
     }
 
     // Print the current category
